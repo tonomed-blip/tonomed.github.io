@@ -1,0 +1,16 @@
+/* チェックされた時のスタイル */
+.checked {
+    text-decoration: line-through;
+    color: pink;
+}
+
+li {
+    list-style: none;
+    font-size: 24px;
+    margin: 20px 0;
+}
+
+input[type="checkbox"] {
+    transform: scale(3.0); /* チェックボックスを少し大きく */
+    margin-right: 15px;
+}

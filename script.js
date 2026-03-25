@@ -9,10 +9,14 @@ function updateDate() {
 // 2. ブックマークのデータ（ここを編集するだけでリンクを増やせます！）
 const bookmarks = [
     { name: "花粉", url: "https://weathernews.jp/pollen/tokyo/13109/" },
+    { name: "株価", url: "https://nikkei225jp.com/" },
     { name: "マネフォ", url: "https://moneyforward.com/" },
+    { name: "インスタ", url: "https://www.instagram.com/" },
+    { name: "スマートEx", url: "https://shinkansen2.jr-central.co.jp/RSV_P/smart_index.htm?_gl=1*vvt2wq*_gcl_au*MTE0NDA2MzM5OC4xNzc0NDQ4NjAz*_ga*ODkzNTUyMzIuMTc3NDQ0ODYwMw..*_ga_41P1T5QHNY*czE3NzQ0NDg2MDIkbzEkZzAkdDE3NzQ0NDg2MTgkajQ0JGwwJGgw" },
     { name: "民間医局", url: "https://www.doctor-agent.com/" },
     { name: "はてブ", url: "https://hatena.blog/" },
-    { name: "株価", url: "https://nikkei225jp.com/" }
+    
+
     
 ];
 
@@ -57,13 +61,13 @@ function updateDate() {
     displayMessage(now);
 }
 
-// ★新機能：曜日や日付でメッセージを出す
+// ★曜日や日付でメッセージを出す
 function displayMessage(now) {
     const month = now.getMonth() + 1; // 月は0から始まるので+1
     const date = now.getDate();
     const day = now.getDay(); // 0:日, 1:月, 2:火, 3:水, 4:木, 5:金, 6:土
     
-    let message = "おーい、とろぱぐ"; // デフォルトのメッセージ
+    let message = "今日も一日がんばりましょう"; // デフォルトのメッセージ
 
     // --- 曜日の条件分岐 ---
     if (day === 5) {

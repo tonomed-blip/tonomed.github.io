@@ -14,8 +14,8 @@ const bookmarks = [
     { name: "インスタ", url: "https://www.instagram.com/" },
     { name: "スマートEx", url: "https://shinkansen2.jr-central.co.jp/RSV_P/smart_index.htm?_gl=1*vvt2wq*_gcl_au*MTE0NDA2MzM5OC4xNzc0NDQ4NjAz*_ga*ODkzNTUyMzIuMTc3NDQ0ODYwMw..*_ga_41P1T5QHNY*czE3NzQ0NDg2MDIkbzEkZzAkdDE3NzQ0NDg2MTgkajQ0JGwwJGgw" },
     { name: "民間医局", url: "https://www.doctor-agent.com/" },
-    { name: "はてブ", url: "https://hatena.blog/" },
-    
+    { name: "はてな", url: "https://xjgsu5n.hatenablog.com/" },
+    { name: "note", url: "https://note.com/" },    
 
     
 ];
@@ -31,13 +31,20 @@ function displayBookmarks() {
         anchor.target = "_blank";
 
         // --- ここからアイコン作成 ---
+        const faviconUrl = `https://www.google.com/s2/favicons?domain=${new URL(item.url).hostname}&sz=64&default=404`;
         const icon = document.createElement('img');
         // GoogleのAPIを利用してアイコンを取得
         // size=32 または 64 くらいがiPhoneで綺麗に見えます
-        icon.src = `https://www.google.com/s2/favicons?domain=${new URL(item.url).hostname}&sz=64`;
-        icon.alt = "";
-        icon.className = 'site-icon';
+        icon.src = faviconUrl;
         
+        icon.className = 'site-icon';
+        // 画像の読み込みに失敗した時の処理
+        icon.onload = () => {
+    // もし読み込まれた画像が「16px以下」などの極小サイズ（＝アイコン取得失敗時の挙動）なら差し替える
+    if (icon.naturalWidth <= 16) {
+        icon.src = 'favicon.png';
+    }
+};
         // テキスト用の要素
         const span = document.createElement('span');
         span.textContent = item.name;
@@ -51,52 +58,46 @@ function displayBookmarks() {
     });
 }
 
-// 1. 日付表示（既存のものを少し拡張）
-function updateDate() {
-    const now = new Date();
-    const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'short' };
-    document.getElementById('date-display').textContent = now.toLocaleDateString('ja-JP', options);
-    
-    // メッセージを表示する関数を呼び出す
-    displayMessage(now);
-}
-
-// ★曜日や日付でメッセージを出す
 function displayMessage(now) {
-    const month = now.getMonth() + 1; // 月は0から始まるので+1
     const date = now.getDate();
-    const day = now.getDay(); // 0:日, 1:月, 2:火, 3:水, 4:木, 5:金, 6:土
+    const day = now.getDay();
+    const nextDay = new Date(now); 
+    nextDay.setDate(date + 1);
     
-    let message = "今日も一日がんばりましょう"; // デフォルトのメッセージ
+    let messages = [];
 
-    // --- 曜日の条件分岐 ---
-    if (day === 5) {
-        message = "今日は🍋の日。おがんばりやす～。";
-    } else if (day === 6) {
-        message = "今日は🚄の日。遅れないでねー。";
-    } else if (day === 0) {
-        message = "今日は🍋？当直？旅行？";
+    // --- 条件判定 ---
+    if (day === 5) messages.push("🍋の日。おがんばりやす～。");
+    if (day === 6) messages.push("🍵の日。おがんばりやす～。");
+    if (day === 0 && ((date >= 8 && date <= 14) || (date >= 22 && date <= 28))) {
+        messages.push("今日は🍋の日。お頑張りやす～。")
     }
+    if (date === 15) messages.push("🍵🏥給料日です。確認してください");
+    if (date === 25) messages.push("🍋給料日です。確認してください。");
+    if (nextDay.getDate() === 1) messages.push("🍵給料日です。確認してください。");
 
-    // --- 特定の日付の条件分岐（上書きされる） ---
-    if (date === 15) {
-        message = "今日は15日、給料日ですね！お疲れ様です！";
-    } else if (month === 1 && date === 1) {
-        message = "あけましておめでとうございます！";
-    }
+    if (messages.length === 0) messages.push("今日も一日頑張りましょう！");
 
-    // HTMLに表示するための要素を（まだなければ）作る
+    // --- 表示処理 ---
+    // headerの中に直接表示エリアを確保する
+    const header = document.querySelector('header');
     let msgElement = document.getElementById('special-message');
+
     if (!msgElement) {
-        msgElement = document.createElement('p');
+        msgElement = document.createElement('div'); // 複数行になるのでdivがおすすめ
         msgElement.id = 'special-message';
-        msgElement.style.color = '#ff6b6b'; // 少し目立つ色に
-        msgElement.style.fontWeight = 'bold';
-        document.querySelector('header').appendChild(msgElement);
+        header.appendChild(msgElement);
     }
+
+    // スタイル設定
+    msgElement.style.color = '#ff6b6b';
+    msgElement.style.fontWeight = 'bold';
+    msgElement.style.marginTop = '10px';
     
-    msgElement.textContent = message;
+    // 内容を反映
+    msgElement.innerHTML = messages.join('<br>');
 }
+
 // HTMLに <input id="search-input"> と <button id="search-btn"> を追加した想定
 const searchBtn = document.getElementById('search-btn');
 const searchInput = document.getElementById('search-input');
@@ -124,3 +125,4 @@ searchInput.addEventListener('keypress', (e) => {
 
 updateDate();
 displayBookmarks();
+displayMessage(new Date());

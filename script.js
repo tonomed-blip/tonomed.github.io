@@ -8,7 +8,7 @@ function updateDate() {
 
 // 2. ブックマークのデータ（ここを編集するだけでリンクを増やせます！）
 const bookmarks = [
-    { name: "花粉", url: "https://weathernews.jp/pollen/tokyo/13109/" },
+    { name: "amazon", url: "https://www.amazon.co.jp/" },
     { name: "株価", url: "https://nikkei225jp.com/" },
     { name: "マネフォ", url: "https://moneyforward.com/" },
     { name: "インスタ", url: "https://www.instagram.com/" },
@@ -73,7 +73,7 @@ function displayMessage(now) {
         messages.push("今日は🍋の日。お頑張りやす～。")
     }
     if (date === 15) messages.push("🍵🏥給料日です。確認してください");
-    if (date === 25) messages.push("🍋給料日です。確認してください。");
+    if (date === 20) messages.push("🍋給料日です。確認してください。");
     if (nextDay.getDate() === 1) messages.push("🍵給料日です。確認してください。");
 
     if (messages.length === 0) messages.push("今日も一日頑張りましょう！");

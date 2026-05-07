@@ -8,14 +8,14 @@ function updateDate() {
 
 // 2. ブックマークのデータ（ここを編集するだけでリンクを増やせます！）
 const bookmarks = [
-    { name: "amazon", url: "https://www.amazon.co.jp/" },
+    { name: "紫外線", url: "https://www.data.jma.go.jp/env/uvindex/uvtrans.html?elementCode=0&areaCode=6&placeCode=47" },
     { name: "株価", url: "https://nikkei225jp.com/" },
     { name: "マネフォ", url: "https://moneyforward.com/" },
+    { name: "amazon", url: "https://www.amazon.co.jp/" },
     { name: "インスタ", url: "https://www.instagram.com/" },
     { name: "スマートEx", url: "https://shinkansen2.jr-central.co.jp/RSV_P/smart_index.htm?_gl=1*vvt2wq*_gcl_au*MTE0NDA2MzM5OC4xNzc0NDQ4NjAz*_ga*ODkzNTUyMzIuMTc3NDQ0ODYwMw..*_ga_41P1T5QHNY*czE3NzQ0NDg2MDIkbzEkZzAkdDE3NzQ0NDg2MTgkajQ0JGwwJGgw" },
     { name: "民間医局", url: "https://www.doctor-agent.com/" },
-    { name: "はてな", url: "https://xjgsu5n.hatenablog.com/" },
-    { name: "note", url: "https://note.com/" },    
+    { name: "はてな", url: "https://xjgsu5n.hatenablog.com/" },  
 
     
 ];
